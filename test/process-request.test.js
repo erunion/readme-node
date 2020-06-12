@@ -232,6 +232,13 @@ describe('processRequest()', () => {
         ])
       ));
 
+  it('#queryString with empty query', () =>
+    request(createApp())
+      .post('/a?unvalidatedInput=')
+      .expect(({ body }) => {
+        return expect(body.queryString[0].value).toBe('');
+      }));
+
   describe('#postData', () => {
     describe('application/x-www-form-urlencoded', () => {
       it('#params should contain parsed body', () => {
